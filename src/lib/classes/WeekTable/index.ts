@@ -1,4 +1,4 @@
-import {Week} from "./types";
+import { Week, } from './types'
 
 
 const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000
@@ -9,7 +9,7 @@ export default class WeekTable {
 
   private weeks: Array<Week> = []
 
-  constructor (private startDate: Date, private endDate: Date) {
+  constructor (private startDate: Date = new Date, private endDate: Date = new Date) {
     this.generateWeeks(startDate, endDate)
   }
 
@@ -20,12 +20,12 @@ export default class WeekTable {
 
     this.weeks = new Array(weeksCount).fill(0).map((_, index) => ({
       starts: new Date(firstWeekStart + index * MILLISECONDS_IN_A_WEEK),
-      ends: new Date(firstWeekStart + index * MILLISECONDS_IN_A_WEEK + MILLISECONDS_IN_A_WEEK)
+      ends: new Date(firstWeekStart + index * MILLISECONDS_IN_A_WEEK + MILLISECONDS_IN_A_WEEK),
     }))
   }
 
   public getWeekByDate (date: Date): string {
-    const weekIndex = this.weeks.findIndex(({ starts, ends }) => starts <= date && ends >= date)
+    const weekIndex = this.weeks.findIndex(({ starts, ends, }) => starts <= date && ends >= date)
 
     if (weekIndex === -1) {
       return 'unknown week'

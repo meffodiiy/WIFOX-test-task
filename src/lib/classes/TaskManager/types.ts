@@ -12,8 +12,3 @@ export type Statistics = {
   assigneeStats: Record<string, number>
   dueDateStats: Record<string, number>
 }
-
-export type Week = {
-  starts: Date
-  ends: Date
-}
