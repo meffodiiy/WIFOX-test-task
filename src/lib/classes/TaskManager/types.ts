@@ -1,3 +1,6 @@
+import { ToCamelCase, } from '@lib/types'
+
+
 export type TaskStatus = 'open' | 'in progress' | 'completed'
 
 export type Task = Record<'title' | 'description' | 'assignee', string> & {
@@ -5,7 +8,7 @@ export type Task = Record<'title' | 'description' | 'assignee', string> & {
   dueDate: Date
 }
 
-export type TaskStatusKey = 'open' | 'inProgress' | 'completed'
+export type TaskStatusKey = ToCamelCase<TaskStatus>
 
 export type Statistics = {
   taskStatus: Record<TaskStatusKey, number>
