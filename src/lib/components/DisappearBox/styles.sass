@@ -1,0 +1,12 @@
+@import '../../styles/animation'
+
+.disappear-box
+  position: relative
+  overflow: hidden
+
+  transition: height $default-anim-duration linear 0s
+
+  &__content
+    flex-direction: column
+    gap: 12px
+    height: fit-content

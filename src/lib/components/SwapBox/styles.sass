@@ -1,0 +1,19 @@
+@import '../../styles/animation'
+
+.swap-box
+  display: grid
+  grid-template-columns: 1fr
+
+  &__item
+    display: block
+    grid-row-start: 1
+    grid-column-start: 1
+    margin-inline: auto
+    opacity: 1
+    pointer-events: all
+
+    transition: opacity $default-anim-duration linear 0s
+
+    &--hidden
+      opacity: 0
+      pointer-events: none

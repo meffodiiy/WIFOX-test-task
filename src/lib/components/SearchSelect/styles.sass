@@ -1,0 +1,56 @@
+@import "../../styles/colors"
+@import "../../styles/animation"
+
+
+.search-select
+  position: relative
+  flex-direction: column
+
+  &__input
+    background-color: $dirty-white
+    padding: 10px 20px 11px 20px
+    border-radius: 20px
+
+    transition: background-color $default-anim-duration linear 0s
+
+    &--invalid
+      background-color: $danger-red
+
+  &__options
+    z-index: 999
+    position: fixed
+    background-color: $white
+    border-radius: 10px
+    flex-direction: column
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, .2)  // shadow shield
+    opacity: 0
+    overflow: auto
+    max-height: 20vh
+
+    transition: opacity $default-anim-duration linear 0s
+
+    @media (max-width: 768px)
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+      max-height: 80vh
+
+    &__option
+      cursor: pointer
+      padding: 6px 12px
+
+      transition: background-color $quick-anim-duration linear 0s
+
+      &:first-of-type
+        padding-top: 12px
+        border-top-left-radius: 10px
+        border-top-right-radius: 10px
+
+      &:last-of-type
+        padding-bottom: 12px
+        border-bottom-left-radius: 10px
+        border-bottom-right-radius: 10px
+
+      &:hover
+        background-color: $dirtier-white
+

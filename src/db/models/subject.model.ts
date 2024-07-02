@@ -1,15 +1,8 @@
-import { buildModel, } from '@db'
-import { Schema, } from 'mongoose'
+import { getModelForClass, } from '@typegoose/typegoose'
+import Entity from '@db/models/entity.model'
+import { Model, models, } from 'mongoose'
 
 
-export default buildModel('Subject', new Schema({
-  title: {
-    type: String,
-    immutable: true,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date,
-    immutable: true,
-  },
-}))
+export class Subject extends Entity {}
+
+export default <Model<Subject>> (models.Subject || getModelForClass(Subject))
