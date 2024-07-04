@@ -2,7 +2,12 @@ import { createDatabaseConnection, } from '@db'
 // import readline from 'node:readline'
 
 export async function register () {
-  await createDatabaseConnection()
+  try {
+    await createDatabaseConnection()
+  }
+  catch (error) {
+    console.error(`Database connection failed: ${error}`)
+  }
   //
   // if (process.env.NODE_ENV === 'development') {
   //   const rl = readline.createInterface({

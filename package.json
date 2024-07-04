@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "tsx --env-file=.env ./src/db/seed.ts"
   },
   "dependencies": {
     "@typegoose/typegoose": "^12.5.0",
@@ -30,6 +31,7 @@
     "eslint-config-next": "14.2.4",
     "sass": "^1.77.6",
     "ts-node": "^10.9.2",
+    "tsx": "^4.16.2",
     "typescript": "^5"
   }
 }
