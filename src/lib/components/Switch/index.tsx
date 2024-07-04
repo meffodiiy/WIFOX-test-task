@@ -8,7 +8,7 @@ import { useEffect, useMemo, useRef, useState, } from 'react'
 export default function Switch <T, > (props: Props<T>) {
   const {
     initialOptionIndex = 0,
-    render = (option: string) => ({ label: option, value: option, }),
+    render = (option: T) => ({ label: String(option), value: String(option), }),
   } = props
 
   const switchRef = useRef<HTMLDivElement | null>(null)

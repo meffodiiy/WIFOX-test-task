@@ -1,5 +1,5 @@
 import { createDatabaseConnection, } from '@db'
-import readline from 'node:readline'
+// import readline from 'node:readline'
 
 export async function register () {
   await createDatabaseConnection()

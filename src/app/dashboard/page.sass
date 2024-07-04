@@ -1,0 +1,179 @@
+@import '../../lib/styles/colors'
+@import '../../lib/styles/animation'
+
+.week-table
+  background-color: $white
+  //background-color: rebeccapurple
+  flex: 1
+  align-self: stretch
+  flex-direction: column
+
+
+  &__head
+    //background-color: yellow
+    flex-direction: column
+    border-bottom: 1px solid $dirty-white
+
+    &-top
+      justify-content: space-between
+      align-items: center
+      padding: 30px 3vw
+
+      @media (max-width: 768px)
+        padding: 20px 6vw 20px 3vw
+
+
+  &__stats
+    justify-content: space-between
+    gap: 6px
+
+    &-item
+      padding: 6px 12px
+      border-radius: 3px
+
+      & span
+        color: $white
+        line-height: 1
+        font-size: 12px
+
+        &:first-of-type
+          @media (max-width: 768px)
+            display: none
+
+      &--open
+        background-color: $open-blue
+
+      &--inProgress
+        background-color: $in-progress-orange
+
+      &--completed
+        background-color: $completed-green
+
+  &__profile-circle
+    background-color: $dirty-white
+    width: 30px
+    height: 30px
+    border-radius: 100px
+    justify-content: center
+    align-items: center
+    line-height: 1
+    text-transform: uppercase
+
+  &__days
+    font-size: 12px
+
+
+  &__body
+    //background-color: aqua
+    flex: 1
+    overflow: overlay
+    flex-direction: column
+
+  &__row
+    width: 100%
+    //background-color: #FF8F8F
+    min-height: 100px
+    border-bottom: 1px solid $dirty-white
+
+    &--no-height
+      min-height: unset
+
+    &:last-of-type
+      border-bottom: unset
+
+  &__row-head, &__row-section
+    //background-color: blue
+    flex-direction: column
+    align-items: center
+    min-width: 16vw
+    padding: 10px 5px
+    border-right: 1px solid $dirty-white
+    flex: 1
+    gap: 4px
+    pointer-events: none
+
+    & > *
+      pointer-events: all
+
+    @media (max-width: 768px)
+      font-size: 8px
+      pointer-events: all
+
+    &:last-of-type
+      border-right: unset
+
+    &:hover > button
+      opacity: 1
+
+  &__row-head
+    justify-content: center
+    gap: 6px
+
+    &-item
+      font-size: 14px
+
+      &--full
+        display: flex
+
+      &--short
+        display: none
+
+      @media (max-width: 768px)
+        &--full
+          display: none
+
+        &--short
+          display: flex
+          font-size: 12px
+
+      &--sub
+        font-size: 10px
+        color: $light-gray
+
+  &__task
+    padding: 6px 8px
+    border-radius: 3px
+    font-size: 10px
+    color: $white
+    line-height: 1
+    cursor: pointer
+    flex: 1
+    align-self: stretch
+    flex-grow: 0
+    text-overflow: ellipsis
+
+    &--open
+      background-color: $open-blue
+
+    &--inProgress
+      background-color: $in-progress-orange
+
+    &--completed
+      background-color: $completed-green
+
+  &__day
+    @media (max-width: 768px)
+      font-size: 0
+      &:first-letter
+        font-size: 12px
+
+  &__add-task-btn
+    text-transform: lowercase
+    background-color: $almost-white
+    padding-block: 6px
+    border-radius: 3px
+    font-size: 10px
+    line-height: 1
+    cursor: pointer
+    flex: 1
+    opacity: 0
+    align-self: stretch
+    flex-grow: 0
+
+    transition: opacity $quick-anim-duration linear 0s
+
+    @media (max-width: 768px)
+      display: none
+
+    &:hover
+      filter: brightness(101%)

@@ -5,7 +5,7 @@ export type Props<T, > = (
     InputHTMLAttributes<HTMLInputElement>,
     'name' | 'placeholder' | 'required'
   > & {
-    options: T[]
+    options: T[] | ((searchQuery: string) => T[])
     render: (option: T) => { key: string | number, label: string, value: string }
     onSelect?: (option: T, index: number) => void
     minInput?: number

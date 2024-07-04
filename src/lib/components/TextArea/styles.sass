@@ -1,0 +1,14 @@
+@import "../../styles/colors"
+@import "../../styles/animation"
+
+.textarea
+  background-color: $dirty-white
+  padding: 10px 20px 11px 20px
+  border-radius: 10px
+  max-height: 200px
+  resize: none
+
+  transition: background-color $default-anim-duration linear 0s
+
+  &--invalid
+    background-color: $danger-red

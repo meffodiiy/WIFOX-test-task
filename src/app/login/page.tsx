@@ -5,16 +5,16 @@ import Input from '@lib/components/Input'
 import * as Texts from '@lib/constants/texts'
 import Button from '@lib/components/Button'
 import Switch from '@lib/components/Switch'
-import { FormEvent, useEffect, useState, } from 'react'
+import { useEffect, useState, } from 'react'
 import DisappearBox from '@lib/components/DisappearBox'
-import { getSignUpData, } from '@/app/login/actions'
+import { getSignUpFormData, SignUpFormData, signUp, SignUpData, logIn, LogInData, } from '@/app/login/actions'
 import SearchSelect from '@lib/components/SearchSelect'
 import { School, } from '@db/models/school.model'
 import SwapBox from '@lib/components/SwapBox'
 import { Subject, } from '@db/models/subject.model'
 import { Grade, } from '@db/models/grade.model'
 import Logo from '@lib/components/Logo'
-
+import { handleSubmit, } from '@lib/helpers'
 
 
 const OPTIONS = [Texts.LOG_IN_TITLE, Texts.SIGN_UP_TITLE,]
@@ -35,49 +35,37 @@ const STUDENT_OPTION_INDEX = 0
 const USER_TYPE_INITIAL_OPTION_INDEX = 0
 
 
-
 export default function LoginPage () {
   const [isSignUpModeOn, setIsSignUpModeOn,] = useState(LOG_IN_OPTION_INDEX !== INITIAL_OPTION_INDEX)
-  const [signUpData, setSignUpData,] = useState({ schools: [], grades: [], subjects: [], } as Awaited<ReturnType<typeof getSignUpData>>)
+  const [signUpData, setSignUpData,] = useState<SignUpFormData>({ schools: [], grades: [], subjects: [], })
   const [isUserTeacher, setIsUserTeacher,] = useState(STUDENT_OPTION_INDEX !== USER_TYPE_INITIAL_OPTION_INDEX)
 
   useEffect(() => {
-    getSignUpData().then(setSignUpData)
+    getSignUpFormData().then(setSignUpData)
   }, [])
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const onSubmit = handleSubmit(async (isValid, data) => {
+    if (!isValid) return
 
-    const requiredInputs = Array.from(e.currentTarget.elements).filter(elm => (
-      elm.tagName === 'INPUT' && (elm as HTMLInputElement).required
-    )) as HTMLInputElement[]
+    const failed = isSignUpModeOn
+      ? await signUp(data as SignUpData)
+      : await logIn(data as LogInData)
 
-    const invalidInputs = requiredInputs.filter(i => {
-      const isInvalid = !i.checkValidity() || i.value.length === 0
-
-      if (isInvalid) {
-        i.dispatchEvent(new Event('invalid'))
-      }
-
-      return isInvalid
-    })
-
-    if (invalidInputs.length === 0) {
-      console.log('VALID!')
-    }
-  }
+    console.log('SignIn succeed', failed)
+  })
 
   return (
     <form className="login-form" onSubmit={onSubmit}>
       <Logo variant="middle"/>
       <br/>
       <Switch<string>
+        name="" required={false}
         options={OPTIONS}
         initialOptionIndex={INITIAL_OPTION_INDEX}
         onSelect={(_, index) => setIsSignUpModeOn(index !== LOG_IN_OPTION_INDEX)}
       />
       <br/>
-      <Input name="username" type="text" placeholder={Texts.USERNAME} required/>
+      <Input name="name" type="text" placeholder={Texts.USERNAME} required/>
       <DisappearBox showIf={isSignUpModeOn}>
         <SearchSelect<School>
           name="school" placeholder={Texts.SCHOOL} required={isSignUpModeOn}
@@ -87,7 +75,7 @@ export default function LoginPage () {
             label: title,
             value: _id,
           })}
-          onSelect={(school) => null}
+          onSelect={() => null}
         />
         <Switch<typeof USER_TYPES[number]>
           name="type" required={isSignUpModeOn}
@@ -110,7 +98,7 @@ export default function LoginPage () {
                 value: _id,
               })}
               minInput={1}
-              onSelect={(grade) => null}
+              onSelect={() => null}
             />,
             <SearchSelect<Subject>
               key={1}
@@ -122,7 +110,7 @@ export default function LoginPage () {
                 value: _id,
               })}
               minInput={1}
-              onSelect={(subject) => null}
+              onSelect={() => null}
             />,
           ]}
         />

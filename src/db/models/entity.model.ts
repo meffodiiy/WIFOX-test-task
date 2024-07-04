@@ -1,12 +1,12 @@
 import { prop, } from '@typegoose/typegoose'
+import Base from '@db/models/base.model'
 
-export default class Entity {
+export default class Entity extends Base {
 
-  public _id: string
-
-  @prop({ type: String, required: true, immutable: true, })
-  public title: string
-
-  @prop({ type: Date, default: () => new Date, immutable: true, })
-  public createdAt: Date
+  @prop({
+    type: String,
+    required: true,
+    immutable: true,
+  })
+  public title!: string
 }

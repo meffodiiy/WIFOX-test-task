@@ -1,37 +1,16 @@
-import { Schema, SchemaTypes, } from 'mongoose'
-import { buildModel, } from '@db'
-import encryptPasswordHook from '@db/utils/encryptPasswordHook'
-import comparePasswordMethod from '@db/utils/comparePasswordMethod'
+import { Model, models, } from 'mongoose'
+import User from '@db/models/user.model'
+import { getModelForClass, prop, Ref, } from '@typegoose/typegoose'
+import { Subject, } from '@db/models/subject.model'
 
-const schema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    immutable: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  subjects: [
-    {
-      type: SchemaTypes.ObjectId,
-      ref: 'Subject',
-    },
-  ],
-  school: {
-    type: SchemaTypes.ObjectId,
-    ref: 'School',
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date,
-    immutable: true,
-  },
-})
 
-schema.pre('save', encryptPasswordHook)
-schema.methods.comparePassword = comparePasswordMethod
+export class Teacher extends User {
 
-export default buildModel('Teacher', schema)
+  @prop({
+    ref: () => Subject,
+    required: true,
+  })
+  public subject!: Ref<Subject>
+}
+
+export default <Model<Teacher>> (models.Teacher || getModelForClass(Teacher))

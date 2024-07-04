@@ -1,8 +1,6 @@
-import Student from '@db/models/student.model'
 import SchoolModel from '@db/models/school.model'
 import GradeModel from '@db/models/grade.model'
 import SubjectModel from '@db/models/subject.model'
-import { createDatabaseConnection, } from './'
 
 
 export default async function seedDatabase () {
@@ -35,9 +33,9 @@ export default async function seedDatabase () {
     'Біологія',
   ].map(title => ({ title, })))
 
-  const maleNames = 'Ахілес, Ізмаїл, Принц, Одисей, Тамерлан, Осман, Соломон, Еней, Царь, Мойсей, Рожден, Варфоломій, Куонг Кионг, Сулейман, Ксенофонт, Златослав'
-  const femaleNames = 'Октавія, Феліція, Меліса, Божена, Весняна, Камільєна, Кассандра, Мальвіна, Санта, Квітослава, Сапфіра, Тіша, Юнона, Афіна, Есмеральда, Мадонна, Жасмін, Іскра, Златослава, Квітка, Імпєрія, Росінка, Флорентіна, Герда, Мелодісон, Іллінка, Аврора'
-  const names = (maleNames + ', ' + femaleNames).split(', ')
+  // const maleNames = 'Ахілес, Ізмаїл, Принц, Одисей, Тамерлан, Осман, Соломон, Еней, Царь, Мойсей, Рожден, Варфоломій, Куонг Кионг, Сулейман, Ксенофонт, Златослав'
+  // const femaleNames = 'Октавія, Феліція, Меліса, Божена, Весняна, Камільєна, Кассандра, Мальвіна, Санта, Квітослава, Сапфіра, Тіша, Юнона, Афіна, Есмеральда, Мадонна, Жасмін, Іскра, Златослава, Квітка, Імпєрія, Росінка, Флорентіна, Герда, Мелодісон, Іллінка, Аврора'
+  // const names = (maleNames + ', ' + femaleNames).split(', ')
 
 
   // TODO: fill with tasks

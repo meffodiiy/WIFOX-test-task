@@ -1,13 +1,13 @@
 import './styles.sass'
 import { Props, } from './types'
-import { useEffect, useMemo, useRef, useState, MouseEvent, ChangeEventHandler, ChangeEvent, } from 'react'
+import { useEffect, useMemo, useRef, useState, MouseEvent, ChangeEvent, } from 'react'
 
 export default function SearchSelect <T, > (props: Props<T>) {
   const { minInput = 3, } = props
   const searchInputRef = useRef<HTMLInputElement | null>(null)
   const hiddenInputRef = useRef<HTMLInputElement | null>(null)
   const optionsRef = useRef<HTMLDivElement | null>(null)
-  const hideOnBlurFunctionRef = useRef<Function>(null)
+  const hideOnBlurFunctionRef = useRef<(() => void) | null>(null)
   const [searchValue, setSearchValue,] = useState('')
   const [isInvalid, setIsInvalid,] = useState(false)
 
@@ -18,7 +18,6 @@ export default function SearchSelect <T, > (props: Props<T>) {
 
     hideOnBlurFunctionRef.current = () => {
       setSearchValue('')
-      console.log('KEK')
     }
   }, [])
 
@@ -27,20 +26,25 @@ export default function SearchSelect <T, > (props: Props<T>) {
     setSearchValue(e.target.value)
   }
 
-  const options = useMemo(() => (
-    searchValue.length >= minInput
-      ? props.options.filter(option => (
+  const options = useMemo(() => {
+    if (searchValue.length < minInput) return []
+
+    const rawOptions = typeof props.options === 'function'
+      ? props.options(searchValue)
+      : props.options
+    return (
+      rawOptions.filter(option => (
         props.render(option).label.toLowerCase().includes(searchValue.toLowerCase()))
       )
-      : []
-  ), [minInput, props, searchValue,])
+    )
+  }, [minInput, props, searchValue,])
 
   useEffect(() => {
     if (options.length > 0) {
-      window.addEventListener('click', hideOnBlurFunctionRef.current)
+      window.addEventListener('click', hideOnBlurFunctionRef.current!)
     }
     else {
-      window.removeEventListener('click', hideOnBlurFunctionRef.current)
+      window.removeEventListener('click', hideOnBlurFunctionRef.current!)
     }
   }, [options,])
 

@@ -2,6 +2,16 @@ version: '3.1'
 
 services:
 
+  app:
+    container_name: sharaga
+    image: 'sharaga:latest'
+    build:
+      context: .
+    ports:
+      - '${DOCKER_APP_EXPOSE_PORT}:3000'
+    environment:
+      DATABASE_URI: "mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@mongo:27017/"
+
   mongo:
     image: mongo
     restart: always
