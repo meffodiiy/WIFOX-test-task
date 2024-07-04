@@ -1,3 +1,5 @@
+# 0. Create .env file by template ([.env.template](.env.template))
+
 # 1. Run app
 ```shell
 docker compose up
