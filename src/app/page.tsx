@@ -1,3 +1,5 @@
+'use client'
+
 import Logo from '@lib/components/Logo'
 import * as Texts from '@lib/constants/texts'
 import Button from '@lib/components/Button'
